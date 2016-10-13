@@ -11,6 +11,8 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    private let urlScheme: String = "blissrecruitment"
+    
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
@@ -39,7 +41,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        if url.scheme != nil && url.scheme! == self.urlScheme {
+            if url.query != nil {
+                if url.host! == "questions" {
+                    url.query!.componentsSeparatedByString("&").forEach {
+                        let components: [String] = $0.componentsSeparatedByString("=")
+                        if components.count == 2 && components.first != nil {
+                            if components.first! == "question_filter" {
+                                NSUserDefaults.standardUserDefaults().setObject(components.last == nil ? "" : components.last!, forKey: "filter")
+                                NSUserDefaults.standardUserDefaults().synchronize()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return true
+    }
 
 }
-

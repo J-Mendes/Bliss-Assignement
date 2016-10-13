@@ -11,8 +11,11 @@ import UIKit
 class QuestionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchBarTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var tableView: UITableView!
     
+    private var searchButton: UIBarButtonItem!
+    private var shareButton: UIBarButtonItem!
     private var searchString: String = ""
     private var currentPage: UInt = 0
     private var hasReachedLastPage: Bool = true
@@ -24,13 +27,17 @@ class QuestionsViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
 
         self.initLayout()
-        self.getQuestions()
+        self.updateOnSchemeLaunch()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.updateOnSchemeLaunch), name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
     
     private func initLayout() {
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.title = "Questions"
+        self.searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(self.searchAction(_:)))
+        self.navigationItem.setRightBarButtonItem(self.searchButton, animated: false)
+        self.shareButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(self.shareAction(_:)))
         
         self.searchBar.placeholder = "Search language"
         self.searchBar.returnKeyType = .Done
@@ -38,6 +45,34 @@ class QuestionsViewController: UIViewController, UITableViewDataSource, UITableV
         
         self.tableView.tableFooterView = UIView()
         self.tableView.registerNib(UINib(nibName: String(QuestionTableViewCell), bundle: nil), forCellReuseIdentifier: String(QuestionTableViewCell))
+    }
+    
+    internal func updateOnSchemeLaunch() {
+        if let filter: String = NSUserDefaults.standardUserDefaults().stringForKey("filter") {
+            self.questions = []
+            self.tableView.reloadData()
+            self.searchBarTopConstraint.constant = -44.0
+            self.searchAction(self)
+            if filter == "" {
+                self.searchBar.becomeFirstResponder()
+                self.searchBar.text = ""
+            } else {
+                self.searchBar.resignFirstResponder()
+                self.searchBar.text = filter
+            }
+            self.searchBar(self.searchBar, textDidChange: self.searchBar.text!)
+            
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("filter")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        } else {
+            if self.questions.count == 0 {
+                self.getQuestions()
+            }
+        }
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,7 +106,7 @@ class QuestionsViewController: UIViewController, UITableViewDataSource, UITableV
     
     // MARK: - Table view delegate
     
-    func tableView(tableView: UITableView, didSelectRowAt indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.view.endEditing(true)
         // TODO: logic to go to question detail
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -97,11 +132,50 @@ class QuestionsViewController: UIViewController, UITableViewDataSource, UITableV
         self.searchString = searchText
         self.currentPage = 0
         
+        if self.searchString == "" {
+            self.navigationItem.rightBarButtonItems = nil
+            self.navigationItem.setRightBarButtonItem(self.searchButton, animated: true)
+        } else {
+            if self.navigationItem.rightBarButtonItems?.count == 1 {
+                self.navigationItem.rightBarButtonItems = nil
+                self.navigationItem.setRightBarButtonItems([self.searchButton, self.shareButton], animated: true)
+            }
+        }
+        
         if self.searchDelayTimer != nil && (self.searchDelayTimer?.valid)! {
             self.searchDelayTimer?.invalidate()
         }
         
         self.searchDelayTimer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: #selector(self.getQuestions), userInfo: nil, repeats: false)
+    }
+    
+    
+    // MARK: - UIButton actions
+    
+    @IBAction func searchAction(sender: AnyObject) {
+        if self.searchBarTopConstraint.constant == 0 {
+            self.searchBar.resignFirstResponder()
+            if self.navigationItem.rightBarButtonItems?.count == 2 {
+                self.navigationItem.rightBarButtonItems = nil
+                self.navigationItem.setRightBarButtonItem(self.searchButton, animated: true)
+            }
+            
+            self.searchBarTopConstraint.constant = -44.0
+            UIView.animateWithDuration(0.2, animations: {
+                self.view.layoutIfNeeded()
+            })
+        } else {
+            self.searchBar.becomeFirstResponder()
+            self.searchBarTopConstraint.constant = 0.0
+            UIView.animateWithDuration(0.3, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    @IBAction func shareAction(sender: AnyObject) {
+        //let url: String = "blissrecruitment://questions?question_filter=" + self.searchString
+        // TODO: goto share screen
     }
     
     
