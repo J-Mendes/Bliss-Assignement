@@ -68,11 +68,60 @@
                         <outlet property="activityIndicatorView" destination="fve-x4-Z6c" id="4zN-Rd-jWe"/>
                         <outlet property="retryButton" destination="0qW-LB-RvQ" id="XbF-Qv-qhf"/>
                         <outlet property="titleLabel" destination="FvD-3i-MXp" id="Yjz-9g-sce"/>
+                        <segue destination="Pcq-Wj-2sx" kind="show" identifier="questionListSegue" id="VYU-fX-2uX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtx-jq-Anq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="337" y="137"/>
+        </scene>
+        <!--Questions View Controller-->
+        <scene sceneID="Cjh-TT-76O">
+            <objects>
+                <viewController id="Pcq-Wj-2sx" customClass="QuestionsViewController" customModule="Bliss_Assignement" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ewT-ld-Qhz"/>
+                        <viewControllerLayoutGuide type="bottom" id="Zpc-Jb-E9g"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Axg-WS-KRu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="SgE-5M-Cq6">
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Pcq-Wj-2sx" id="fRP-B8-Ujr"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="M1T-LD-6Oe">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Pcq-Wj-2sx" id="5Zf-Mu-nbY"/>
+                                    <outlet property="delegate" destination="Pcq-Wj-2sx" id="jPW-VX-kOm"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="SgE-5M-Cq6" firstAttribute="centerX" secondItem="Axg-WS-KRu" secondAttribute="centerX" id="0TG-62-NP1"/>
+                            <constraint firstAttribute="trailing" secondItem="SgE-5M-Cq6" secondAttribute="trailing" id="9Dn-14-4QY"/>
+                            <constraint firstItem="M1T-LD-6Oe" firstAttribute="leading" secondItem="Axg-WS-KRu" secondAttribute="leading" id="CXY-Zm-DJA"/>
+                            <constraint firstItem="SgE-5M-Cq6" firstAttribute="top" secondItem="ewT-ld-Qhz" secondAttribute="bottom" id="MWW-9A-Jt6"/>
+                            <constraint firstItem="SgE-5M-Cq6" firstAttribute="leading" secondItem="Axg-WS-KRu" secondAttribute="leading" id="dvQ-8H-HjD"/>
+                            <constraint firstItem="Zpc-Jb-E9g" firstAttribute="top" secondItem="M1T-LD-6Oe" secondAttribute="bottom" id="g3m-8f-M0o"/>
+                            <constraint firstAttribute="trailing" secondItem="M1T-LD-6Oe" secondAttribute="trailing" id="hvp-2N-2LQ"/>
+                            <constraint firstItem="M1T-LD-6Oe" firstAttribute="top" secondItem="SgE-5M-Cq6" secondAttribute="bottom" id="okq-xw-07R"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="searchBar" destination="SgE-5M-Cq6" id="DeV-Oj-2N7"/>
+                        <outlet property="tableView" destination="M1T-LD-6Oe" id="R6Z-24-M5W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="prc-fA-DyB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1234" y="136"/>
         </scene>
     </scenes>
 </document>

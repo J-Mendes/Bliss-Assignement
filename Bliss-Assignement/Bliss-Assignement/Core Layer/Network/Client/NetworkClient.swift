@@ -13,6 +13,7 @@ class NetworkClient: NSObject {
 
     static let domain: String = "com.jm.Bliss-Assignement.NetworkClient"
     static let baseUrl: String = "https://private-anon-dd905fc611-blissrecruitmentapi.apiary-mock.com/"
+    static let pageSize: UInt = 10
     
     internal var httpManager: BaseHTTPManager!
     

@@ -14,6 +14,10 @@ class LoadingViewController: UIViewController {
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var retryButton: UIButton!
     
+    private enum Segues: String {
+        case questionList = "questionListSegue"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,7 +58,7 @@ class LoadingViewController: UIViewController {
         NetworkClient.sharedManager().getServerHealth { (result, error) in
             if error == nil {
                 if let response: [String: AnyObject] = result as? [String: AnyObject] where (response["status"] as? String) == "OK" {
-                    // TODO: goto list screen
+                    self.performSegueWithIdentifier(Segues.questionList.rawValue, sender: self)
                 } else {
                     self.showRetry()
                 }

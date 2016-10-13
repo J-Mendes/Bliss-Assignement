@@ -1,8 +1,8 @@
 //
-//  NetworkClient+HealthStatus.swift
+//  NetworkClient+Questions.swift
 //  Bliss-Assignement
 //
-//  Created by Jorge Mendes on 12/10/16.
+//  Created by Jorge Mendes on 13/10/16.
 //  Copyright © 2016 Jorge Mendes. All rights reserved.
 //
 
@@ -10,10 +10,10 @@ import Foundation
 
 extension NetworkClient {
 
-    // MARK: - Server Health Status
+    // MARK: - Questions
     
-    internal func getServerHealth(completion: (response: AnyObject, error: NSError?) -> Void) {
-        self.httpManager.GET(NetworkClient.baseUrl + "health")
+    internal func getQuestions(page: UInt, filter: String, completion: (response: AnyObject, error: NSError?) -> Void) {
+        self.httpManager.GET(NetworkClient.baseUrl + "questions?limit=\(NetworkClient.pageSize)&offset=\((page - 1) * NetworkClient.pageSize)" + (filter != "" ? "&filter=\(filter)" : ""))
             .responseJSON { (response) -> Void in
                 self.httpManager.manager?.session.invalidateAndCancel()
                 
@@ -33,7 +33,7 @@ extension NetworkClient {
                         errorCode = httpResponse.statusCode
                     }
                     
-                    completion(response: "", error: NSError(domain: NetworkClient.domain + ".ServerHealth", code: errorCode, userInfo: nil))
+                    completion(response: "", error: NSError(domain: NetworkClient.domain + ".Questions", code: errorCode, userInfo: nil))
                     break
                 }
         }
