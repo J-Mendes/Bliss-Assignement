@@ -21,6 +21,9 @@
 		758DC73D1DAFA77600F07ACA /* QuestionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 758DC73B1DAFA77600F07ACA /* QuestionTableViewCell.xib */; };
 		758DC73F1DAFE57B00F07ACA /* QuestionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DC73E1DAFE57B00F07ACA /* QuestionDetailsViewController.swift */; };
 		758DC7411DAFF6D100F07ACA /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DC7401DAFF6D100F07ACA /* ProgressHUD.swift */; };
+		758DC7431DB004D700F07ACA /* NetworkClient+Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DC7421DB004D700F07ACA /* NetworkClient+Share.swift */; };
+		758DC7491DB008C000F07ACA /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DC7481DB008C000F07ACA /* ShareView.swift */; };
+		758DC74B1DB008CD00F07ACA /* ShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 758DC74A1DB008CD00F07ACA /* ShareView.xib */; };
 		759978071DAE8A8300B74AD7 /* BaseHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759978061DAE8A8300B74AD7 /* BaseHTTPManager.swift */; };
 		759978091DAE8AEC00B74AD7 /* Request+Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759978081DAE8AEC00B74AD7 /* Request+Logging.swift */; };
 		7599780C1DAE8B8E00B74AD7 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7599780B1DAE8B8E00B74AD7 /* NetworkClient.swift */; };
@@ -46,6 +49,9 @@
 		758DC73B1DAFA77600F07ACA /* QuestionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QuestionTableViewCell.xib; path = Views/QuestionTableViewCell.xib; sourceTree = "<group>"; };
 		758DC73E1DAFE57B00F07ACA /* QuestionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionDetailsViewController.swift; sourceTree = "<group>"; };
 		758DC7401DAFF6D100F07ACA /* ProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgressHUD.swift; path = Views/ProgressHUD.swift; sourceTree = "<group>"; };
+		758DC7421DB004D700F07ACA /* NetworkClient+Share.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NetworkClient+Share.swift"; path = "Core Layer/Network/Client/NetworkClient+Share.swift"; sourceTree = "<group>"; };
+		758DC7481DB008C000F07ACA /* ShareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareView.swift; path = Views/ShareView.swift; sourceTree = "<group>"; };
+		758DC74A1DB008CD00F07ACA /* ShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShareView.xib; path = Views/ShareView.xib; sourceTree = "<group>"; };
 		759978061DAE8A8300B74AD7 /* BaseHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseHTTPManager.swift; path = "Core Layer/Network/HTTP Manager/BaseHTTPManager.swift"; sourceTree = "<group>"; };
 		759978081DAE8AEC00B74AD7 /* Request+Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Request+Logging.swift"; path = "Core Layer/Network/HTTP Manager/Request+Logging.swift"; sourceTree = "<group>"; };
 		7599780B1DAE8B8E00B74AD7 /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkClient.swift; path = "Core Layer/Network/Client/NetworkClient.swift"; sourceTree = "<group>"; };
@@ -141,6 +147,8 @@
 				758DC73A1DAFA77600F07ACA /* QuestionTableViewCell.swift */,
 				758DC73B1DAFA77600F07ACA /* QuestionTableViewCell.xib */,
 				758DC7401DAFF6D100F07ACA /* ProgressHUD.swift */,
+				758DC7481DB008C000F07ACA /* ShareView.swift */,
+				758DC74A1DB008CD00F07ACA /* ShareView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -179,6 +187,7 @@
 				7599780B1DAE8B8E00B74AD7 /* NetworkClient.swift */,
 				7599780D1DAE8DA000B74AD7 /* NetworkClient+HealthStatus.swift */,
 				758DC72F1DAF943200F07ACA /* NetworkClient+Questions.swift */,
+				758DC7421DB004D700F07ACA /* NetworkClient+Share.swift */,
 			);
 			name = Client;
 			sourceTree = "<group>";
@@ -256,6 +265,7 @@
 				756E17561DAE59830007F40A /* LaunchScreen.storyboard in Resources */,
 				758DC73D1DAFA77600F07ACA /* QuestionTableViewCell.xib in Resources */,
 				756E17531DAE59830007F40A /* Assets.xcassets in Resources */,
+				758DC74B1DB008CD00F07ACA /* ShareView.xib in Resources */,
 				756E17511DAE59830007F40A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,8 +330,10 @@
 				758DC7381DAF9F9A00F07ACA /* Choice.swift in Sources */,
 				759978071DAE8A8300B74AD7 /* BaseHTTPManager.swift in Sources */,
 				7599780E1DAE8DA000B74AD7 /* NetworkClient+HealthStatus.swift in Sources */,
+				758DC7431DB004D700F07ACA /* NetworkClient+Share.swift in Sources */,
 				758DC73F1DAFE57B00F07ACA /* QuestionDetailsViewController.swift in Sources */,
 				758DC7411DAFF6D100F07ACA /* ProgressHUD.swift in Sources */,
+				758DC7491DB008C000F07ACA /* ShareView.swift in Sources */,
 				756E174C1DAE59830007F40A /* AppDelegate.swift in Sources */,
 				758DC7361DAF9E3300F07ACA /* Question.swift in Sources */,
 				7599780C1DAE8B8E00B74AD7 /* NetworkClient.swift in Sources */,

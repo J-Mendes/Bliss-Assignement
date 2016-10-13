@@ -84,8 +84,9 @@ class QuestionDetailsViewController: UIViewController, UITableViewDataSource, UI
     // MARK: - UIButton actions
     
     @IBAction func shareAction(sender: AnyObject) {
-        //let url: String = "blissrecruitment://questions?question_id=\(self.question.id)"
-        // TODO: goto share screen
+        let shareView: ShareView = NSBundle.mainBundle().loadNibNamed(String(ShareView), owner: self, options: nil)?.first as! ShareView
+        shareView.shareUrl = "blissrecruitment://questions?question_id=\(self.question.id)"
+        shareView.show()
     }
     
     
