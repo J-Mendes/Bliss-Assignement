@@ -39,4 +39,58 @@ extension NetworkClient {
         }
     }
     
+    internal func getQuestion(id: Int, completion: (response: AnyObject, error: NSError?) -> Void) {
+        self.httpManager.GET(NetworkClient.baseUrl + "questions/\(id)")
+            .responseJSON { (response) -> Void in
+                self.httpManager.manager?.session.invalidateAndCancel()
+                
+                let jsonParse: (json: AnyObject?, error: NSError?) = NetworkClient.jsonObjectFromData(response.data)
+                
+                switch response.result {
+                case .Success:
+                    if let json: AnyObject = jsonParse.json {
+                        completion(response: json, error: nil)
+                    } else {
+                        completion(response: "", error: jsonParse.error)
+                    }
+                    break
+                case .Failure:
+                    var errorCode: Int = -1
+                    if let httpResponse: NSHTTPURLResponse = response.response {
+                        errorCode = httpResponse.statusCode
+                    }
+                    
+                    completion(response: "", error: NSError(domain: NetworkClient.domain + ".Question.\(id)", code: errorCode, userInfo: nil))
+                    break
+                }
+        }
+    }
+    
+    internal func updateQuestion(id: Int, question: [String: AnyObject], completion: (response: AnyObject, error: NSError?) -> Void) {
+        self.httpManager.PUT(NetworkClient.baseUrl + "questions/\(id)", parameters: question, headers: ["Content-Type": "application/json"])
+            .responseJSON { (response) -> Void in
+                self.httpManager.manager?.session.invalidateAndCancel()
+                
+                let jsonParse: (json: AnyObject?, error: NSError?) = NetworkClient.jsonObjectFromData(response.data)
+                
+                switch response.result {
+                case .Success:
+                    if let json: AnyObject = jsonParse.json {
+                        completion(response: json, error: nil)
+                    } else {
+                        completion(response: "", error: jsonParse.error)
+                    }
+                    break
+                case .Failure:
+                    var errorCode: Int = -1
+                    if let httpResponse: NSHTTPURLResponse = response.response {
+                        errorCode = httpResponse.statusCode
+                    }
+                    
+                    completion(response: "", error: NSError(domain: NetworkClient.domain + ".Question.\(id)", code: errorCode, userInfo: nil))
+                    break
+                }
+        }
+    }
+    
 }

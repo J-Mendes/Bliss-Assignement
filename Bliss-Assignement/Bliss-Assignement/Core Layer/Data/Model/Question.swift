@@ -17,6 +17,8 @@ class Question: NSObject {
     internal var publishDate: String!
     internal var choices: [Choice]!
     
+    private var dictionaryRepresentation: [String: AnyObject]! = [:]
+    
     override init() {
         super.init()
         
@@ -30,6 +32,8 @@ class Question: NSObject {
     
     convenience init(withDictionary dictionary: [String: AnyObject]) {
         self.init()
+        
+        self.dictionaryRepresentation = dictionary
         
         if let id: Int = dictionary["id"] as? Int {
             self.id = id
@@ -56,5 +60,15 @@ class Question: NSObject {
                 self.choices.append(Choice(withDictionary: $0))
             }
         }
+    }
+    
+    internal func getDictionaryRepresentationWithUpdatedChoices() -> [String: AnyObject] {
+        var dictionaryRepresentation: [String: AnyObject] = self.dictionaryRepresentation
+        var choicesDictionary: [[String: AnyObject]] = []
+        self.choices.forEach {
+            choicesDictionary.append($0.toDictionaryRepresentation())
+        }
+        dictionaryRepresentation["choices"] = choicesDictionary
+        return dictionaryRepresentation
     }
 }

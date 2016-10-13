@@ -19,6 +19,8 @@
 		758DC7381DAF9F9A00F07ACA /* Choice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DC7371DAF9F9A00F07ACA /* Choice.swift */; };
 		758DC73C1DAFA77600F07ACA /* QuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DC73A1DAFA77600F07ACA /* QuestionTableViewCell.swift */; };
 		758DC73D1DAFA77600F07ACA /* QuestionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 758DC73B1DAFA77600F07ACA /* QuestionTableViewCell.xib */; };
+		758DC73F1DAFE57B00F07ACA /* QuestionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DC73E1DAFE57B00F07ACA /* QuestionDetailsViewController.swift */; };
+		758DC7411DAFF6D100F07ACA /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DC7401DAFF6D100F07ACA /* ProgressHUD.swift */; };
 		759978071DAE8A8300B74AD7 /* BaseHTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759978061DAE8A8300B74AD7 /* BaseHTTPManager.swift */; };
 		759978091DAE8AEC00B74AD7 /* Request+Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759978081DAE8AEC00B74AD7 /* Request+Logging.swift */; };
 		7599780C1DAE8B8E00B74AD7 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7599780B1DAE8B8E00B74AD7 /* NetworkClient.swift */; };
@@ -42,6 +44,8 @@
 		758DC7371DAF9F9A00F07ACA /* Choice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Choice.swift; path = "Core Layer/Data/Model/Choice.swift"; sourceTree = "<group>"; };
 		758DC73A1DAFA77600F07ACA /* QuestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionTableViewCell.swift; path = Views/QuestionTableViewCell.swift; sourceTree = "<group>"; };
 		758DC73B1DAFA77600F07ACA /* QuestionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QuestionTableViewCell.xib; path = Views/QuestionTableViewCell.xib; sourceTree = "<group>"; };
+		758DC73E1DAFE57B00F07ACA /* QuestionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionDetailsViewController.swift; sourceTree = "<group>"; };
+		758DC7401DAFF6D100F07ACA /* ProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgressHUD.swift; path = Views/ProgressHUD.swift; sourceTree = "<group>"; };
 		759978061DAE8A8300B74AD7 /* BaseHTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseHTTPManager.swift; path = "Core Layer/Network/HTTP Manager/BaseHTTPManager.swift"; sourceTree = "<group>"; };
 		759978081DAE8AEC00B74AD7 /* Request+Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Request+Logging.swift"; path = "Core Layer/Network/HTTP Manager/Request+Logging.swift"; sourceTree = "<group>"; };
 		7599780B1DAE8B8E00B74AD7 /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkClient.swift; path = "Core Layer/Network/Client/NetworkClient.swift"; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 				756E174F1DAE59830007F40A /* Main.storyboard */,
 				759978121DAEA32700B74AD7 /* LoadingViewController.swift */,
 				758DC72D1DAF8F6700F07ACA /* QuestionsViewController.swift */,
+				758DC73E1DAFE57B00F07ACA /* QuestionDetailsViewController.swift */,
 				758DC7391DAFA74A00F07ACA /* Views */,
 				75480E8E1DAE882900DA65DF /* Core Layer */,
 				759978031DAE885900B74AD7 /* Support Files */,
@@ -135,6 +140,7 @@
 			children = (
 				758DC73A1DAFA77600F07ACA /* QuestionTableViewCell.swift */,
 				758DC73B1DAFA77600F07ACA /* QuestionTableViewCell.xib */,
+				758DC7401DAFF6D100F07ACA /* ProgressHUD.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -314,6 +320,8 @@
 				758DC7381DAF9F9A00F07ACA /* Choice.swift in Sources */,
 				759978071DAE8A8300B74AD7 /* BaseHTTPManager.swift in Sources */,
 				7599780E1DAE8DA000B74AD7 /* NetworkClient+HealthStatus.swift in Sources */,
+				758DC73F1DAFE57B00F07ACA /* QuestionDetailsViewController.swift in Sources */,
+				758DC7411DAFF6D100F07ACA /* ProgressHUD.swift in Sources */,
 				756E174C1DAE59830007F40A /* AppDelegate.swift in Sources */,
 				758DC7361DAF9E3300F07ACA /* Question.swift in Sources */,
 				7599780C1DAE8B8E00B74AD7 /* NetworkClient.swift in Sources */,

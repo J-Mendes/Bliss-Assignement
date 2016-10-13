@@ -14,6 +14,10 @@ class QuestionsViewController: UIViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var searchBarTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var tableView: UITableView!
     
+    private enum Segues: String {
+        case questionDetail = "detailSegue"
+    }
+    
     private var searchButton: UIBarButtonItem!
     private var shareButton: UIBarButtonItem!
     private var searchString: String = ""
@@ -22,6 +26,7 @@ class QuestionsViewController: UIViewController, UITableViewDataSource, UITableV
     private var isLoading: Bool = false
     private var questions: [Question] = []
     private var searchDelayTimer: NSTimer? = nil
+    private var selectedQuestion: Question? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +68,22 @@ class QuestionsViewController: UIViewController, UITableViewDataSource, UITableV
             self.searchBar(self.searchBar, textDidChange: self.searchBar.text!)
             
             NSUserDefaults.standardUserDefaults().removeObjectForKey("filter")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        } else if let id: String = NSUserDefaults.standardUserDefaults().stringForKey("id") {
+            self.navigationController?.popToViewController(self, animated: false)
+            self.questions = []
+            self.tableView.reloadData()
+            self.searchBarTopConstraint.constant = 0.0
+            self.searchAction(self)
+            self.searchBar.text = ""
+            self.searchBar.resignFirstResponder()
+            self.searchBar(self.searchBar, textDidChange: self.searchBar.text!)
+            
+            if let id: Int = Int(id) {
+                self.getQuestion(withId: id)
+            }
+            
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("id")
             NSUserDefaults.standardUserDefaults().synchronize()
         } else {
             if self.questions.count == 0 {
@@ -108,19 +129,19 @@ class QuestionsViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.view.endEditing(true)
-        // TODO: logic to go to question detail
+        self.getQuestion(withId: self.questions[indexPath.row].id)
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == Segues.questionDetail.rawValue {
+            (segue.destinationViewController as! QuestionDetailsViewController).question = self.selectedQuestion
+        }
     }
-    */
+    
     
     // MARK: - Search bar delegate
     
@@ -199,8 +220,21 @@ class QuestionsViewController: UIViewController, UITableViewDataSource, UITableV
                 self.isLoading = false
                 self.hasReachedLastPage = true
                 if self.currentPage == 1 {
-                    // TODO: deal with error
+                    ProgressHUD.showErrorHUD(UIApplication.sharedApplication().keyWindow!, text: "An error was occurred\nwhile fetching questions.")
                 }
+            }
+        }
+    }
+    
+    internal func getQuestion(withId id: Int) {
+        ProgressHUD.showProgressHUD(UIApplication.sharedApplication().keyWindow!, text: "Loading...")
+        DataManager.sharedManager.getQuestion(withId: id) { (question: Question, error: NSError?) in
+            if error == nil {
+                self.selectedQuestion = question
+                self.performSegueWithIdentifier(Segues.questionDetail.rawValue, sender: self)
+                ProgressHUD.dismissAllHuds(UIApplication.sharedApplication().keyWindow!)
+            } else {
+                ProgressHUD.showErrorHUD(UIApplication.sharedApplication().keyWindow!, text: "An error was occurred\nwhile fetching details.")
             }
         }
     }

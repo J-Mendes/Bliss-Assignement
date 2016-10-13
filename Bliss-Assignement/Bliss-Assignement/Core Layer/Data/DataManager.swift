@@ -37,4 +37,46 @@ class DataManager: NSObject {
         }
     }
     
+    internal func getQuestion(withId id: Int, result: (Question, NSError?) -> Void) {
+        NetworkClient.sharedManager().getQuestion(id) { (response, error) in
+            if error == nil {
+                if let questionDictionary: [String: AnyObject] = response as? [String: AnyObject] {
+                    let question: Question = Question(withDictionary: questionDictionary)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        result(question, error)
+                    })
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        result(Question(), NSError(domain: DataManager.domain + ".Question.\(id)", code: -2, userInfo: nil))
+                    })
+                }
+            } else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    result(Question(), error)
+                })
+            }
+        }
+    }
+    
+    internal func updateQuestion(withQuestion question: Question, result: (Question, NSError?) -> Void) {
+        NetworkClient.sharedManager().updateQuestion(question.id, question: question.getDictionaryRepresentationWithUpdatedChoices()) { (response, error) in
+            if error == nil {
+                if let questionDictionary: [String: AnyObject] = response as? [String: AnyObject] {
+                    let question: Question = Question(withDictionary: questionDictionary)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        result(question, error)
+                    })
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        result(Question(), NSError(domain: DataManager.domain + ".Question.\(question.id)", code: -2, userInfo: nil))
+                    })
+                }
+            } else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    result(Question(), error)
+                })
+            }
+        }
+    }
+    
 }

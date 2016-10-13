@@ -31,4 +31,8 @@ class Choice: NSObject {
             self.votes = votes
         }
     }
+    
+    internal func toDictionaryRepresentation() -> [String: AnyObject] {
+        return ["choice": self.choice, "votes": self.votes]
+    }
 }

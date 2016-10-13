@@ -52,6 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             if components.first! == "question_filter" {
                                 NSUserDefaults.standardUserDefaults().setObject(components.last == nil ? "" : components.last!, forKey: "filter")
                                 NSUserDefaults.standardUserDefaults().synchronize()
+                            } else if components.first! == "question_id" && components.last != nil {
+                                NSUserDefaults.standardUserDefaults().setObject(components.last!, forKey: "id")
+                                NSUserDefaults.standardUserDefaults().synchronize()
                             }
                         }
                     }
