@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NetworkUnreachableView" customModule="Bliss_Assignement" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Av2-DY-VQo">
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="Hz6-TD-V8p"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Av2-DY-VQo" secondAttribute="trailing" constant="50" id="SAy-vm-8vL"/>
+                <constraint firstItem="Av2-DY-VQo" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Sgh-z0-ZME"/>
+                <constraint firstItem="Av2-DY-VQo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="50" id="WEh-pb-ioy"/>
+                <constraint firstItem="Av2-DY-VQo" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="z6B-J1-3Vd"/>
+            </constraints>
+            <connections>
+                <outlet property="messageLabel" destination="Av2-DY-VQo" id="2rk-DT-h1J"/>
+            </connections>
+        </view>
+    </objects>
+</document>

@@ -34,6 +34,7 @@ class QuestionsViewController: UIViewController, UITableViewDataSource, UITableV
         self.initLayout()
         self.updateOnSchemeLaunch()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.updateOnSchemeLaunch), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.networkIsReachable), name: BaseHTTPManager.networkReachable, object: nil)
     }
     
     private func initLayout() {
@@ -90,6 +91,10 @@ class QuestionsViewController: UIViewController, UITableViewDataSource, UITableV
                 self.getQuestions()
             }
         }
+    }
+    
+    internal func networkIsReachable() {
+        self.hasReachedLastPage = false
     }
     
     deinit {

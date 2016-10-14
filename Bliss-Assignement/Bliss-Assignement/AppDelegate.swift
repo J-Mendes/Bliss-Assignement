@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireNetworkActivityIndicator
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,9 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let urlScheme: String = "blissrecruitment"
     
     var window: UIWindow?
+    
+    private var networkUnreachableView: NetworkUnreachableView?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        NetworkActivityIndicatorManager.sharedManager.isEnabled = true
+        NetworkActivityIndicatorManager.sharedManager.startDelay = 0.1
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.networkIsReachable), name: BaseHTTPManager.networkReachable, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.networkIsUnreachable), name: BaseHTTPManager.networkUnreachable, object: nil)
+        
         return true
     }
 
@@ -40,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
@@ -63,6 +73,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         return true
+    }
+    
+    
+    // MARK: - Network reachability methods
+    
+    internal func networkIsReachable() {
+        if self.networkUnreachableView != nil && (self.networkUnreachableView?.isShowing)! {
+            self.networkUnreachableView?.dismiss()
+        }
+    }
+    
+    internal func networkIsUnreachable() {
+        if self.networkUnreachableView == nil || !(self.networkUnreachableView?.isShowing)! {
+            self.networkUnreachableView = NSBundle.mainBundle().loadNibNamed(String(NetworkUnreachableView), owner: self, options: nil)?.first as? NetworkUnreachableView
+            self.networkUnreachableView?.show()
+        }
     }
 
 }
