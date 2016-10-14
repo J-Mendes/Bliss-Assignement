@@ -14,4 +14,4 @@ Jorge Mendes, jorge_mendes@outlook.com
 
 ## License
 
-TesteIOS is available under the LGPL 3.0 license. See the LICENSE file for more info.
+Bliss-Assignement is available under the LGPL 3.0 license. See the LICENSE file for more info.
